@@ -9,9 +9,11 @@ function SignUp() {
     email: "",
     password: "",
   });
+
   const [contactError, setContactError] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [showForm, setShowForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(""); // For backend error responses
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,8 +30,9 @@ function SignUp() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+
     if (formData.contact.length !== 10) {
       setContactError("Contact number must be exactly 10 digits");
       return;
@@ -39,10 +42,27 @@ function SignUp() {
       return;
     }
 
-    setShowForm(false);
-    setIsRegistered(true);
+    try {
+      const response = await fetch("http://localhost:4012/api/smv1/register-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setTimeout(() => setIsRegistered(false), 3000);
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsRegistered(true);
+        setShowForm(false);
+        setTimeout(() => setIsRegistered(false), 3000);
+      } else {
+        setErrorMessage(data.error || "Registration failed.");
+      }
+    } catch (error) {
+      setErrorMessage("Failed to connect to the server.");
+    }
   };
 
   return (
@@ -50,6 +70,8 @@ function SignUp() {
       {showForm && (
         <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-96">
           <h2 className="text-2xl font-bold mb-4 text-gray-200">Register</h2>
+          {errorMessage && <p className="text-red-400 text-sm mb-3">{errorMessage}</p>}
+          
           <form onSubmit={handleRegister} className="flex flex-col gap-3">
             <input
               type="text"
