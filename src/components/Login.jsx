@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 function Login({ onClose, onLoginSuccess }) {
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
   const [contactError, setContactError] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
-  const navigate = useNavigate();
 
   // Handle Input Change
   const handleChange = (e) => {
@@ -34,18 +31,11 @@ function Login({ onClose, onLoginSuccess }) {
       return;
     }
 
-    setShowPopup(true);
+    // Call the parent function to set login state
+    onLoginSuccess();
 
-    // Hide popup after 3 seconds and scroll to Quick Actions
-    setTimeout(() => {
-      setShowPopup(false);
-      onLoginSuccess();
-      document.getElementById("quick-actions")?.scrollIntoView({ behavior: "smooth" });
-    }, 3000);
-  };
-
-  const scrollToQuickAction = () => {
-    document.getElementById("quick-actions")?.scrollIntoView({ behavior: "smooth" });
+    // Close the modal immediately
+    onClose();
   };
 
   return (
@@ -81,7 +71,6 @@ function Login({ onClose, onLoginSuccess }) {
               <button
                 type="submit"
                 className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded"
-                onClick={scrollToQuickAction}
               >
                 Login
               </button>
@@ -94,29 +83,8 @@ function Login({ onClose, onLoginSuccess }) {
               </button>
             </div>
           </form>
-
-          {/* ✅ Register Link */}
-          <p className="text-sm mt-4 text-center">
-            Not registered?{" "}
-            <span
-              className="text-blue-400 cursor-pointer hover:underline"
-              onClick={() => {
-                onClose(); // Close login modal
-                navigate("/signup"); // Redirect to SignUp
-              }}
-            >
-              Register Here
-            </span>
-          </p>
         </div>
       </div>
-
-      {/* ✅ Success Popup on `top-20` */}
-      {showPopup && (
-        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-lg">
-          🎉 Login Successful!
-        </div>
-      )}
     </>
   );
 }

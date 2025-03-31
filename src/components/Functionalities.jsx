@@ -10,19 +10,19 @@ function Functionalities({functionalities}) {
       <h2>Quick Actions</h2>
      </div>
 
-    <div className='grid grid-cols-3  gap-7 p-7'>
+    
+<div className="grid grid-cols-3 gap-7 p-7">
 
-      {
-        functionalities.map((func) => {
-          return <Cards cardData = {func} ></Cards>
-                     
-          }
-        )
+  {functionalities.map((func, index) => (
+    <Cards key={index} cardData={func} />
+
+  )
+  )}
+</div>
 
 
 
-      }
-    </div>
+    
 
 
 
