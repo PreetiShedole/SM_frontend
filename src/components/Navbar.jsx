@@ -18,6 +18,22 @@ function Navbar() {
     setIsLoggedIn(false);
   };
 
+  // Scroll to Footer
+  const scrollToFooter = () => {
+    const footer = document.getElementById("footer");
+    if (footer) {
+      footer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  // Scroll to Home
+  const scrollToHome = () => {
+    const home = document.getElementById("home");
+    if (home) {
+      home.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div className="max-w-full container mx-auto">
       <div className="navbar fixed top-0 left-0 w-full h-[12%] bg-black bg-opacity-50 shadow-lg backdrop-blur-3xl text-white px-6 py-3 z-50 flex justify-between">
@@ -29,15 +45,21 @@ function Navbar() {
 
         {/* Right Section - Buttons */}
         <div className="navbar-end flex gap-4">
-          <button className="btn text-white hover:bg-gray-100 hover:text-black px-4 py-2 rounded-lg transition">
+          <button 
+            onClick={scrollToHome} 
+            className="btn text-white hover:bg-gray-100 hover:text-black px-4 py-2 rounded-lg transition">
             Home
           </button>
 
-          <button className="btn text-white hover:bg-gray-100 hover:text-black px-4 py-2 rounded-lg transition">
+          <button 
+            onClick={scrollToFooter} 
+            className="btn text-white hover:bg-gray-100 hover:text-black px-4 py-2 rounded-lg transition">
             About
           </button>
 
-          <button className="btn text-white hover:bg-gray-100 hover:text-black px-4 py-2 rounded-lg transition">
+          <button 
+            onClick={scrollToFooter} 
+            className="btn text-white hover:bg-gray-100 hover:text-black px-4 py-2 rounded-lg transition">
             Contact
           </button>
 

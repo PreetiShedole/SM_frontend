@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Arrow from "../assets/Icons/Arrow.svg";
+import ProjectImage from "../assets/Project_image3.jpg";
+
 
 function Home() {
   const [showForm, setShowForm] = useState(false);
@@ -52,7 +54,7 @@ function Home() {
   return (
     <div id="home" className="h-[100vh] w-full flex flex-col items-center justify-center gap-7 relative bg-gradient-to-br from-gray-900 to-gray-700">
       <img
-        src="Project_image3.jpg"
+        src={ProjectImage}
         alt="society-living-img"
         className="w-full h-full object-cover absolute mix-blend-overlay shadow-2xl"
       />

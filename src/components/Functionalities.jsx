@@ -19,20 +19,8 @@ function Functionalities({functionalities}) {
   )
   )}
 </div>
-
-
-
-    
-
-
-
-  </div>
-
-      </div>
-    
-   
-
-
+</div>
+</div>
   );
 }
 
